@@ -33,5 +33,6 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/sabreauto_6q.mk \
   $(LOCAL_DIR)/sabresd_6dq.mk \
   $(LOCAL_DIR)/hdmidongle_6dq.mk \
+  $(LOCAL_DIR)/ts4900_6dq.mk \
   $(LOCAL_DIR)/sabresd_6sx.mk \
   $(LOCAL_DIR)/sabreauto_6sx.mk \

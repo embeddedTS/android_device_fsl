@@ -1,0 +1,1 @@
+wm density 120
