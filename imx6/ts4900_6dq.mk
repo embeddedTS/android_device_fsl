@@ -20,6 +20,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/ts4900_6dq/init.rc:root/init.freescale.rc \
 	device/fsl/ts4900_6dq/lcd.sh:root/lcd.sh \
 	device/fsl/ts4900_6dq/ADS7843_Touchscreen.idc:system/usr/idc/ADS7843_Touchscreen.idc \
+	device/fsl/ts4900_6dq/ADS7843_Touchscreen.idc:system/usr/idc/ADS7846_Touchscreen.idc \
 	device/fsl/ts4900_6dq/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/ts4900_6dq/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
