@@ -21,6 +21,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/ts4900_6dq/lcd.sh:root/lcd.sh \
 	device/fsl/ts4900_6dq/ADS7843_Touchscreen.idc:system/usr/idc/ADS7843_Touchscreen.idc \
 	device/fsl/ts4900_6dq/ADS7843_Touchscreen.idc:system/usr/idc/ADS7846_Touchscreen.idc \
+	device/fsl/ts4900_6dq/pixcir_tangoc.idc:system/usr/idc/pixcir_tangoc.idc \
 	device/fsl/ts4900_6dq/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/ts4900_6dq/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
@@ -54,4 +55,5 @@ PRODUCT_COPY_FILES += \
 	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 endif
 
-PRODUCT_PACKAGES += AudioRoute
+SUPERUSER_PACKAGE := com.ts.superuser
+PRODUCT_PACKAGES += AudioRoute strace Superuser

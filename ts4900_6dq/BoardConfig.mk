@@ -12,11 +12,13 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
-TARGET_RECOVERY_FSTAB = device/fsl/ts4900_6dq/fstab.freescale
+#TARGET_RECOVERY_FSTAB = device/fsl/ts4900_6dq/fstab.freescale
 PRODUCT_MODEL := TS4900-MX6DQ
+PRODUCT_MANUFACTURER := technologic
 
 PRODUCT_COPY_FILES += \
-	device/fsl/ts4900_6dq/fstab.freescale:root/fstab.freescale \
+	device/fsl/ts4900_6dq/fstab.emmc:root/fstab.emmc \
+	device/fsl/ts4900_6dq/fstab.sd:root/fstab.sd \
 	device/fsl/ts4900_6dq/firmware/wl12xx/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
 	device/fsl/ts4900_6dq/firmware/wl12xx//wl127x-fw-5-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-sr.bin \
 	device/fsl/ts4900_6dq/firmware/wl12xx/wl127x-fw-5-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-mr.bin \
@@ -64,11 +66,16 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := true
 
+# Embedding SuperUser in our rom
+SUPERUSER_EMBEDDED := true﻿
+
 # We use the same uboot between builds, dont change this
 TARGET_NO_BOOTLOADER := true
 
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-ts4900-14.dtb imx6dl:imx6dl-ts4900-14.dtb \
-		imx6q:imx6q-ts4900-2.dtb imx6dl:imx6dl-ts4900-2.dtb 
+		imx6q:imx6q-ts4900-2.dtb imx6dl:imx6dl-ts4900-2.dtb \
+		imx6q:imx6q-ts4900-14.dtb imx6dl:imx6dl-ts4900-14.dtb \
+		imx6q:imx6q-ts4900-8395.dtb imx6dl:imx6dl-ts4900-8395.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/ts4900_6dq/sepolicy
