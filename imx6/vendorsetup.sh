@@ -1,4 +1,6 @@
-
+add_lunch_combo tsimx6-eng
+add_lunch_combo tsimx6-user
+add_lunch_combo tsimx6-userdebug
 add_lunch_combo sabresd_6dq-eng
 add_lunch_combo sabresd_6dq-user
 add_lunch_combo sabreauto_6q-eng

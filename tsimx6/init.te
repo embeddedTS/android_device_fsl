@@ -1,0 +1,6 @@
+allow init system_file:system module_load;
+allow init self:capability sys_module;
+
+userdebug_or_eng(`
+	allow init su:process { transition siginh rlimitinh };
+')

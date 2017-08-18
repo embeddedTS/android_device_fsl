@@ -1,0 +1,48 @@
+# Prepare with:
+# mkimage -T script -C none -n 'TSIMX6 Android' -d boot.scr boot.ub
+
+env set ramdiskaddr 0x14000000;
+
+if test ${jpsdboot} = 'on'; then
+	env set bootpart 0:1;
+else
+	env set bootpart 1:1;
+fi
+
+if test $model -eq '7990'; then
+	if load mmc ${bootpart} ${loadaddr} /ts7990-fpga.vme; then
+		fpga load 0 ${loadaddr} ${filesize};
+	fi;
+	if test ${pcbrev} != 'a'; then
+		load mmc ${bootpart} ${fdtaddr} /imx6${cpu}-ts7990-${lcd}-revb.dtb;
+	else
+		load mmc ${bootpart} ${fdtaddr} /imx6${cpu}-ts7990-${lcd}.dtb;
+	fi;
+fi;
+
+if test $model -eq '7970'; then
+	if load mmc ${bootpart} ${loadaddr} /ts7970-fpga.vme; then
+		fpga load 0 ${loadaddr} ${filesize};
+	fi;
+	load mmc ${bootpart} ${fdtaddr} /imx6${cpu}-ts7970.dtb;
+fi;
+
+if test $model -eq '4900'; then
+	load mmc ${bootpart} ${loadaddr} /ts4900-fpga.bin;
+	ice40 ${loadaddr} ${filesize};
+	bbdetect;
+	if load mmc ${bootpart} ${fdtaddr} /imx6${cpu}-ts4900-${baseboardid}.dtb; then
+		echo "Loaded ${baseboardid} dtb";
+	else
+		load mmc ${bootpart} ${fdtaddr} /imx6${cpu}-ts4900-${baseboardid}.dtb;
+		echo "Loaded ${baseboardid} dtb";
+	fi;
+fi;
+
+setenv bootargs 'console=ttymxc0,115200 androidboot.hardware=freescale consoleblank=0 androidboot.console=ttymxc0 vmalloc=400M init=/bin/sh fbmem=28M rootwait ro enforcing=0 androidboot.selinux=permissive';
+
+load mmc ${bootpart} ${ramdiskaddr} /ramdisk.img;
+env set ramdisksz ${filesize};
+
+load mmc ${bootpart} ${loadaddr} /zImage;
+bootz ${loadaddr} ${ramdiskaddr}:${ramdisksz} ${fdtaddr};

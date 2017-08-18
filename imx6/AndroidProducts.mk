@@ -33,3 +33,4 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/sabresd_6sx.mk \
   $(LOCAL_DIR)/sabreauto_6sx.mk \
   $(LOCAL_DIR)/evk_6ul.mk \
+  $(LOCAL_DIR)/tsimx6.mk
