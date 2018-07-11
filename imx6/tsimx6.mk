@@ -32,7 +32,18 @@ PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
 	
+
+BOARD_BOOTDEV := EMMC
+ifeq ($(BOARD_BOOTDEV),SD)
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk1p5
+endif
+ifeq ($(BOARD_BOOTDEV),EMMC)
  PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk2p5
+endif
+ifeq ($(BOARD_BOOTDEV),SATA)
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/sda5
+endif
+
  $(call inherit-product, build/target/product/verity.mk)
 
 # GPU files
@@ -75,5 +86,9 @@ PRODUCT_PACKAGES += \
     libGLSLC \
     libVSC \
     libg2d \
-    libgpuhelper
-
+    curl \
+    su \
+    uim-sysfs \
+    libgpuhelper \
+    tshwctl \
+    tsmicroctl

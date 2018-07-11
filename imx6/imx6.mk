@@ -13,17 +13,14 @@ PRODUCT_PACKAGES += \
 	Gallery2				\
 	Gallery		    			\
 	SoundRecorder				\
-	Camera					\
         LegacyCamera                            \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	WfdSink                                 \
 	wfd                                     \
 	A2dpSinkApp                             \
 	BleServerEmulator                       \
 	BleClient                               \
-	ethernet                                \
 	libfsl_wfd.so                           \
 	libfsl_wfd                           \
 	libpxp                               \
@@ -35,8 +32,6 @@ PRODUCT_PACKAGES += \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
-	VisualizationWallpapers			\
-	CubeLiveWallpapers			\
 	PinyinIME				\
 	libjni_pinyinime        		\
 	libRS					\

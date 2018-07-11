@@ -1,0 +1,6 @@
+on fs
+# mount ext4 partitions
+    mount_all /fstab.sata
+
+    # Update dm-verity state and set partition.*.verified properties
+    verity_update_state

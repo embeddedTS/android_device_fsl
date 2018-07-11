@@ -1,5 +1,7 @@
 import init.${ro.hardware}.usb.rc
 import init.${ro.hardware}.${ro.soc}.rc
+import init.wifi.rc
+import init.fs.rc
 
 on early-init
     # mount the debugfs
@@ -90,6 +92,7 @@ on boot
     setprop wifi.ap.interface wlan0
     insmod /system/lib/modules/at_pwr_dev.ko
     insmod /system/lib/modules/wilc3000.ko
+    insmod /system/lib/modules/wl12xx.ko
 
     # Prepare for RIL
     setprop gsm.ril.delay 15
@@ -298,27 +301,12 @@ service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
     oneshot
     disabled
 
-on fs
-# mount ext4 partitions
-    mount_all /fstab.emmc
-
-    # Update dm-verity state and set partition.*.verified properties
-    verity_update_state
-
 on post-fs
     # Turn on swap
-    swapon_all /fstab
+    #swapon_all /fstab
 
     # Swap in only 1 page at a time
     write /proc/sys/vm/page-cluster 0
 
     # This may have been created by the recovery system with the wrong context.
     restorecon /cache/recovery
-
-#on post-fs
-#service uim /system/bin/uim-sysfs
-#    class core
-#    user bluetooth
-#    group bluetooth net_bt_admin
-#    seclabel u:r:hci_attach:s0
-#    oneshot

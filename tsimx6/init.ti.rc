@@ -1,0 +1,7 @@
+on post-fs
+service uim /system/bin/uim-sysfs
+    class core
+    user bluetooth
+    group bluetooth net_bt_admin
+    seclabel u:r:hci_attach:s0
+    oneshot

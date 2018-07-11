@@ -76,7 +76,7 @@ seprate=100
 total_size=`sfdisk -s ${node}`
 
 # Hardcoded emmc size
-total_size=3676512
+total_size=3506512
 
 total_size=`expr ${total_size} / 1024`
 extend_size=`expr ${SYSTEM_ROM_SIZE} + ${CACHE_SIZE} + ${DEVICE_SIZE} + ${MISC_SIZE} + ${FBMISC_SIZE} + ${PRESISTDATA_SIZE} + ${DATAFOOTER_SIZE} + ${METADATA_SIZE} +  ${seprate}`

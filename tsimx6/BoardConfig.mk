@@ -21,8 +21,8 @@ ifeq ($(BOARD_WLAN_VENDOR),TI)
 BOARD_HAVE_BLUETOOTH_TI          := true
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wl12xx
 BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
+WPA_BUILD_HOSTAPD                := false
 BOARD_WLAN_DEVICE                := wl12xx_mac80211
-BOARD_WLAN_VENDOR                := TI
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
 USES_TI_MAC80211                 := true
 WIFI_BYPASS_FWRELOAD             := true
@@ -37,8 +37,10 @@ PRODUCT_COPY_FILES += \
 	device/fsl/tsimx6/firmware/wl12xx/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
 	device/fsl/tsimx6/firmware/wl12xx/wl127x-fw-5-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-sr.bin \
 	device/fsl/tsimx6/firmware/wl12xx/wl127x-fw-5-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-mr.bin \
-	device/fsl/tsimx6/firmware/wl12xx/TIInit_7.6.15.bts:system/etc/firmware/TIInit_7.6.15.bts \
-	device/fsl/tsimx6/firmware/wl12xx/TIInit_7.2.31.bts:system/etc/firmware/TIInit_7.2.31.bts
+	device/fsl/tsimx6/firmware/wl12xx/TIInit_7.6.15.bts:system/etc/firmware/ti-connectivity/TIInit_7.6.15.bts \
+	device/fsl/tsimx6/firmware/wl12xx/TIInit_7.2.31.bts:system/etc/firmware/ti-connectivity/TIInit_7.2.31.bts \
+	device/fsl/tsimx6/init.ti.rc:root/init.wifi.rc
+
 endif
 
 ifeq ($(BOARD_WLAN_VENDOR),ATMEL)
@@ -49,40 +51,41 @@ BOARD_WLAN_DEVICE                := wilc3000
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_nmc
 SW_BOARD_HAVE_BLUETOOTH_NAME     := atwilc3000
 WIFI_DRIVER_MODULE_NAME          := wilc3000
+WPA_BUILD_HOSTAPD                := true
 WIFI_DRIVER_MODULE_PATH          := /system/lib/modules/wilc3000.ko
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 TARGET_KERNEL_MODULES := \
     kernel_imx/drivers/net/wireless/atmel/wilc3000/at_pwr_dev.ko:system/lib/modules/at_pwr_dev.ko \
     kernel_imx/drivers/net/wireless/atmel/wilc3000/wilc3000.ko:system/lib/modules/wilc3000.ko
-
-#PRODUCT_COPY_FILES += \
-#	device/fsl/tsimx6/firmware/atmel/wilc3000_wifi_firmware.bin:system/etc/firmware/atmel/wilc3000_wifi_firmware.bin \
-#	device/fsl/tsimx6/firmware/atmel/wilc3000_bt_firmware.bin:system/etc/firmware/atmel/wilc3000_bt_firmware.bin \
-#	device/fsl/tsimx6/firmware/atmel/wilc3000_bt_firmware_no_rtc.bin:system/etc/firmware/atmel/wilc3000_bt_firmware_no_rtc.bin
-endif
-
 PRODUCT_COPY_FILES += \
-	device/fsl/tsimx6/startup.sh:system/bin/startup.sh
-
+	device/fsl/tsimx6/firmware/atmel/wilc3000_wifi_firmware.bin:system/etc/firmware/atmel/wilc3000_wifi_firmware.bin \
+	device/fsl/tsimx6/firmware/atmel/wilc3000_bt_firmware.bin:system/etc/firmware/atmel/wilc3000_bt_firmware.bin \
+	device/fsl/tsimx6/firmware/atmel/wilc3000_bt_firmware_no_rtc.bin:system/etc/firmware/atmel/wilc3000_bt_firmware_no_rtc.bin
+endif
 BOARD_HAVE_BLUETOOTH             := true
 BOARD_HAVE_WIFI                  := true
 BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_USE_FORCE_BLE              := true
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-WPA_BUILD_HOSTAPD                := true
 
-PRODUCT_PACKAGES += uim-sysfs \
-	bt_sco_app \
-	BluetoothSCOApp \
-	TQS_D_1.7.ini \
-	su \
-    dhcpcd.conf \
-    hostapd.conf
+#PRODUCT_COPY_FILES += \
+#	device/fsl/tsimx6/startup.sh:system/bin/startup.sh
 
+ifeq ($(BOARD_BOOTDEV),SD)
+PRODUCT_COPY_FILES += \
+	device/fsl/tsimx6/fstab.sd:root/fstab.sd \
+	device/fsl/tsimx6/init.sd.rc:root/init.fs.rc
+endif
+ifeq ($(BOARD_BOOTDEV),EMMC)
 PRODUCT_COPY_FILES += \
 	device/fsl/tsimx6/fstab.emmc:root/fstab.emmc \
-	device/fsl/tsimx6/fstab.emmc:root/fstab.freescale \
-	device/fsl/tsimx6/fstab.sd:root/fstab.sd
+	device/fsl/tsimx6/init.emmc.rc:root/init.fs.rc
+endif
+ifeq ($(BOARD_BOOTDEV),SATA)
+PRODUCT_COPY_FILES += \
+	device/fsl/tsimx6/fstab.sata:root/fstab.sata \
+	device/fsl/tsimx6/init.sata.rc:root/init.fs.rc
+endif
 
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false

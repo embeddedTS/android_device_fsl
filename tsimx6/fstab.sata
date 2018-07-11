@@ -1,0 +1,10 @@
+# Android fstab file.
+#<src>                                                  <mnt_point>         <type>    <mnt_flags and options>                       <fs_mgr_flags>
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+/dev/block/sda5    /system      ext4    ro,barrier=1                                                                     wait,verify=/dev/block/sda10
+/dev/block/sda4    /data        ext4    nosuid,nodev,nodiratime,noatime,noauto_da_alloc,errors=panic    wait,formattable,encryptable=/dev/block/sda9
+/dev/block/sda6    /cache       ext4    nosuid,nodev                                                    wait
+/dev/block/sda7    /device      ext4    ro,nosuid,nodev                                                                  wait
+/dev/block/zram0 none swap defaults zramsize=314572800
