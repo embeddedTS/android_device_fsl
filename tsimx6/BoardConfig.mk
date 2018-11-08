@@ -74,16 +74,19 @@ BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 ifeq ($(BOARD_BOOTDEV),SD)
 PRODUCT_COPY_FILES += \
 	device/fsl/tsimx6/fstab.sd:root/fstab.sd \
+	device/fsl/tsimx6/fstab.sd:root/fstab.freescale \
 	device/fsl/tsimx6/init.sd.rc:root/init.fs.rc
 endif
 ifeq ($(BOARD_BOOTDEV),EMMC)
 PRODUCT_COPY_FILES += \
 	device/fsl/tsimx6/fstab.emmc:root/fstab.emmc \
+	device/fsl/tsimx6/fstab.emmc:root/fstab.freescale \
 	device/fsl/tsimx6/init.emmc.rc:root/init.fs.rc
 endif
 ifeq ($(BOARD_BOOTDEV),SATA)
 PRODUCT_COPY_FILES += \
 	device/fsl/tsimx6/fstab.sata:root/fstab.sata \
+	device/fsl/tsimx6/fstab.sata:root/fstab.freescale \
 	device/fsl/tsimx6/init.sata.rc:root/init.fs.rc
 endif
 
